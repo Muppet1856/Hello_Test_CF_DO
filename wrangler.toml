@@ -1,0 +1,23 @@
+name = "hello-test"
+compatibility_date = "2025-11-10"
+main = "src/index.ts"
+
+[assets]
+directory = "public"
+
+[vars]
+message = "this is a message"
+
+[durable_objects]
+bindings = [
+  { name = "Hello-DO", class_name = "Hello" }
+]
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = [ "Hello" ]
+
+# Routes (optional — wrangler dev ignores these; use for deploy)
+[[routes]]
+pattern = "yoursite.com/*"
+zone_name = "yoursite.com"
