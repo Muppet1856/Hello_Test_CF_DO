@@ -4,9 +4,10 @@ main = "src/index.ts"
 
 [assets]
 directory = "public"
+binding = "ASSETS"
 
 [vars]
-message = "this is a message"
+debug = "true"
 
 [durable_objects]
 bindings = [
