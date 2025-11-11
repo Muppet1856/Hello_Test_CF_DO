@@ -1,5 +1,6 @@
-// src/index.ts (updated to fully expose player.ts functions)
+// src/index.ts (updated with responses.ts import and usage for non-API routes)
 import { initMatchTable, initPlayerTable, initSetTable } from "./utils/init";
+import { jsonResponse, errorResponse } from "./utils/responses";  // Add this import
 
 import * as matchApi from "./api/match";
 import * as playerApi from "./api/player";
@@ -112,19 +113,17 @@ export class Hello {
           break;
       }
 
-      return new Response("API endpoint not found", { status: 404 });
+      return errorResponse("API endpoint not found", 404);  // Updated with responses.ts
     }
 
     /* ---------- Fallback for testing (optional) ---------- */
     if (request.method === "GET") {
       const rows = sql.exec(`SELECT * FROM matches`).toArray();
       if (this.isDebug) console.log("matches:", JSON.stringify(rows));
-      return new Response(JSON.stringify(rows), {
-        headers: { "Content-Type": "application/json" },
-      });
+      return jsonResponse(rows);  // Updated with responses.ts
     }
 
-    return new Response("Method not allowed", { status: 405 });
+    return errorResponse("Method not allowed", 405);  // Updated with responses.ts
   }
 }
 
